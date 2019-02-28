@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AceEditor from 'react-ace'
 
-import styles from './TextEditor.scss';
 import actions from '../../redux/actions';
 import CustomKoaMode from "./rule";
-import 'brace/theme/github';
+import 'brace/theme/dracula';
+
+
+import styles from './TextEditor.scss';
+import editorStyles from './DraculaTheme.scss';
+
 
 class TextEditor extends Component {
     componentDidMount() {
@@ -19,14 +23,16 @@ class TextEditor extends Component {
                 <AceEditor
                     ref="aceEditor"
                     mode="text"
+                    theme="dracula"
                     onChange={target => this.props.changeFileText(target)}
                     name="koaEditor"
                     value={this.props.currentFileText}
                     editorProps={{$blockScrolling: true}}
                     className="TextEditor-editor"
-                    style={styles}
                     width="100%"
+                    height="100%"
                     showPrintMargin={false}
+                    style={editorStyles}
                 />
             </div>
             // <div className="TextEditor">
@@ -50,7 +56,6 @@ class TextEditor extends Component {
         )
     }
 }
-
 const mapStateToProps = state => {
     const currentFileName = state.playgroundReducer.currentFileName;
     
