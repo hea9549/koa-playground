@@ -1,5 +1,6 @@
 .TextEditor {
     height: calc(100vh - 88px);
+
     .ace_cursor{
         color: white;
     }
@@ -15,12 +16,6 @@
         background-color: #131921;
         color: #ffffff;
 
-        //font-family: NotoSans;
-        //font-size: 13px;
-        //font-weight: normal;
-        //font-style: normal;
-        //font-stretch: normal;
-        //line-height: normal;
 
         &:focus {
             outline-width: 0px;
