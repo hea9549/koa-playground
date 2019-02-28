@@ -19,14 +19,14 @@ class TextEditor extends Component {
                 <AceEditor
                     ref="aceEditor"
                     mode="text"
-                    theme="github"
                     onChange={target => this.props.changeFileText(target)}
                     name="koaEditor"
                     value={this.props.currentFileText}
                     editorProps={{$blockScrolling: true}}
                     className="TextEditor-editor"
-
+                    style={styles}
                     width="100%"
+                    showPrintMargin={false}
                 />
             </div>
             // <div className="TextEditor">
