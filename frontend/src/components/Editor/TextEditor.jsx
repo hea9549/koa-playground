@@ -1,21 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AceEditor from 'react-ace'
 
 import styles from './TextEditor.scss';
 import actions from '../../redux/actions';
+import CustomKoaMode from "./rule";
+import 'brace/theme/github';
 
 class TextEditor extends Component {
+    componentDidMount() {
+        const customMode = new CustomKoaMode();
+        this.refs.aceEditor.editor.getSession().setMode(customMode);
+    }
     render() {
         //TODO state를 redux에서 불러오는 것으로 변경
         return (
             <div className="TextEditor">
-                <textarea
-                    disabled={!this.props.currentFileName}
+                <AceEditor
+                    ref="aceEditor"
+                    mode="text"
+                    theme="github"
+                    onChange={target => this.props.changeFileText(target)}
+                    name="koaEditor"
                     value={this.props.currentFileText}
-                    onChange={({target}) => this.props.changeFileText(target.value)}
+                    editorProps={{$blockScrolling: true}}
                     className="TextEditor-editor"
+
+                    width="100%"
                 />
             </div>
+            // <div className="TextEditor">
+            //     <textarea
+            //         disabled={!this.props.currentFileName}
+            //         value={this.props.currentFileText}
+            //         onChange={({target}) => this.props.changeFileText(target.value)}
+            //         className="TextEditor-editor"
+            //     />
+            // </div>
             // <div className="TextEditor">
             //     <pre>
             //         <span contentEditable>def print_hi(name)</span>
