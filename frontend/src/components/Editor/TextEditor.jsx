@@ -13,6 +13,7 @@ class TextEditor extends Component {
     componentDidMount() {
         const customMode = new CustomKoaMode();
         this.refs.aceEditor.editor.getSession().setMode(customMode);
+        //this.refs.aceEditor.editor.getSession().setValue(this.props.currentFileText);
     }
 
     render() {
@@ -22,7 +23,10 @@ class TextEditor extends Component {
                 <AceEditor
                     ref="aceEditor"
                     mode="text"
-                    onChange={target => this.props.changeFileText(target)}
+                    onChange={(target) => {
+                        console.log(target)
+                        this.props.changeFileText(target);
+                    }}
                     name="koaEditor"
                     theme="textmate"
                     value={this.props.currentFileText}
@@ -30,8 +34,6 @@ class TextEditor extends Component {
                     width="100%"
                     height="100%"
                     showPrintMargin={false}
-                    //setOptions={{fontSize:'14pt'}}
-                    fontSize="50"
                     readOnly={!this.props.currentFileName}
                 />
             </div>
@@ -59,10 +61,9 @@ class TextEditor extends Component {
 
 const mapStateToProps = state => {
     const currentFileName = state.playgroundReducer.currentFileName;
-
     return {
         currentFileName,
-        currentFileText: currentFileName ? state.playgroundReducer.fileListObject[currentFileName] : '',
+        currentFileText: currentFileName ? state.playgroundReducer.fileListObject[currentFileName] : 'Please select or create new file ...',
     }
 }
 
